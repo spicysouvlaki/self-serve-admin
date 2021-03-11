@@ -21,8 +21,8 @@ if app_url:
     st.write("Current memory level:", current_mem_level)
 
 update_mem = st.checkbox("Check to update the memory level for this app")
+desired_mem_level = st.selectbox("Desired memory level", ["Normal", "Medium", "High"])
 if update_mem:
-    desired_mem_level = st.selectbox("Desired memory level", ["Normal", "Medium", "High"])
     set_mem(desired_mem_level)
 
 st.markdown("# User Roles")
@@ -31,7 +31,7 @@ if user_id:
     current_roles = get_roles()
     st.write("Current roles:", current_roles)
 update_roles = st.checkbox("Check to update the roles for this user")
+desired_roles = st.multiselect("Select roles:", ["ROLE1", "ROLE2", "ROLE3"])
 if update_roles:
-    desired_roles = st.multiselect("Select roles:", ["ROLE1", "ROLE2", "ROLE3"])
     set_roles(desired_roles)
 
