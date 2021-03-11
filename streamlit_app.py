@@ -23,10 +23,11 @@ st.markdown("# Manage the Resources for an App")
 col1, _, col2 = st.beta_columns((3, 1, 2))
 app_owner = col1.text_input("Owner")
 app_repo = col1.text_input("Repository")
+app_branch = col1.text_input("Branch")
 app_main = col1.text_input("Main File Path")
 current_resources_level = None
-if app_owner and app_repo and app_main:
-    app_coords = (app_owner, app_repo, app_main)
+if app_owner and app_repo and app_branch and app_main:
+    app_coords = (app_owner, app_repo, app_branch, app_main)
     current_resources_level = get_resources(app_coords)
 col2.markdown(f"**Current resource level:**")
 col2.markdown(f"{current_resources_level}")
