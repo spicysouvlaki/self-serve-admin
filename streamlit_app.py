@@ -28,10 +28,29 @@ def get_roles(user_id):
     return ["FAKE_ROLE1", "FAKE_ROLE2"]
 
 def add_role(user_id, role):
-    pass
+    try:
+        r = requests.post(f"http://apps-manager:8500/http/add-user-role", data={'github_user_id': user_id, permission=role})
+        r.raise_for_status()
+    except HTTPError as http_err:
+        st.write(f'HTTP error occurred: {http_err}')
+    except Exception as err:
+        st.write(f'Other error occurred: {err}')
+    else:
+        st.write('Success!', r.json())
+
+ 
 
 def delete_role(user_id, role):
-    pass
+    try:
+        r = requests.post(f"http://apps-manager:8500/http/delete-user-role", data={'github_user_id': user_id, permission=role})
+        r.raise_for_status()
+    except HTTPError as http_err:
+        st.write(f'HTTP error occurred: {http_err}')
+    except Exception as err:
+        st.write(f'Other error occurred: {err}')
+    else:
+        st.write('Success!', r.json())
+
 
 password = "ciao"
 
