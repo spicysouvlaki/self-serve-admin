@@ -19,9 +19,9 @@ def get_roles(user_id):
         r = requests.get(f"http://apps-manager/http/get-user-roles/{user_id}")
         r.raise_for_status()
     except HTTPError as http_err:
-        print(f'HTTP error occurred: {http_err}')
+        st.write(f'HTTP error occurred: {http_err}')
     except Exception as err:
-        print(f'Other error occurred: {err}')
+        st.write(f'Other error occurred: {err}')
     else:
         st.write('Success!', r.body)
 
