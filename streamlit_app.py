@@ -30,7 +30,7 @@ def get_roles(user_id):
 def add_role(user_id, role):
     try:
         r = requests.post(f"http://apps-manager:8500/http/add-user-role", data={'github_user_id': user_id, "permission": 4})
-        st.write(r.request.json())
+        st.write(str(r.request))
         r.raise_for_status()
     except HTTPError as http_err:
         st.write(f'HTTP error occurred: {http_err}')
