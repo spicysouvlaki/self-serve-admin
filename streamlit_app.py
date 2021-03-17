@@ -29,7 +29,7 @@ def get_roles(user_id):
 
 def add_role(user_id, role):
     try:
-        r = requests.post(f"http://apps-manager:8500/http/add-user-role", data={'github_user_id': user_id, permission=role})
+        r = requests.post(f"http://apps-manager:8500/http/add-user-role", data={'github_user_id': user_id, "permission":role})
         r.raise_for_status()
     except HTTPError as http_err:
         st.write(f'HTTP error occurred: {http_err}')
@@ -42,7 +42,7 @@ def add_role(user_id, role):
 
 def delete_role(user_id, role):
     try:
-        r = requests.post(f"http://apps-manager:8500/http/delete-user-role", data={'github_user_id': user_id, permission=role})
+        r = requests.post(f"http://apps-manager:8500/http/delete-user-role", data={'github_user_id': user_id, "permission": role})
         r.raise_for_status()
     except HTTPError as http_err:
         st.write(f'HTTP error occurred: {http_err}')
