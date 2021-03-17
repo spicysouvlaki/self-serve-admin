@@ -16,7 +16,7 @@ def set_resources(app_coords, resources_level):
 
 def get_roles(user_id):
     try:
-        r = requests.get(f"http://apps-manager/http/get-user-roles/{user_id}")
+        r = requests.get(f"http://apps-manager:8500/http/get-user-roles/{user_id}")
         r.raise_for_status()
     except HTTPError as http_err:
         st.write(f'HTTP error occurred: {http_err}')
