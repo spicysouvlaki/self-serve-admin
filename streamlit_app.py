@@ -1,5 +1,6 @@
 import streamlit as st
 import requests as r
+from requests.exceptions import HTTPError
 
 # TODO
 # - password
@@ -14,6 +15,16 @@ def set_resources(app_coords, resources_level):
     pass
 
 def get_roles(user_id):
+    try:
+        r = requests.get(f"http://apps-manager/http/get-user-roles/{user_id}")
+        r.raise_for_status()
+    except HTTPError as http_err:
+        print(f'HTTP error occurred: {http_err}')
+    except Exception as err:
+        print(f'Other error occurred: {err}')
+    else:
+        st.write('Success!', r.body)
+
     return ["FAKE_ROLE1", "FAKE_ROLE2"]
 
 def add_role(user_id, role):
