@@ -23,7 +23,7 @@ def get_roles(user_id):
     except Exception as err:
         st.write(f'Other error occurred: {err}')
     else:
-        st.write('Success!', r)
+        st.write('Success!', r.json())
 
     return ["FAKE_ROLE1", "FAKE_ROLE2"]
 
