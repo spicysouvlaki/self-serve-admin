@@ -1,5 +1,5 @@
 import streamlit as st
-import requests as r
+import requests
 from requests.exceptions import HTTPError
 
 # TODO
