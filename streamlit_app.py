@@ -106,7 +106,7 @@ def main():
     current_roles = []
     if query_roles and user_id:
         current_roles, status_code = get_roles(user_id)
-        col2.markdown("Got `{}`".format(status_code))
+        col1.markdown("Got `{}`".format(status_code))
 
     col1.markdown("**Current roles:**")
     col1.markdown(f"{current_roles}")
