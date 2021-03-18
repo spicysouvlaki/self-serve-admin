@@ -97,16 +97,16 @@ def main():
         app_branch = col1.text_input("Branch", key=1)
         app_main = col1.text_input("Main File Path", key=1)
         desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
-        #if app_owner and app_repo and app_branch and app_main:
-        set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
+        if app_owner and app_repo and app_branch and app_main:
+            set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
     st.markdown("# Manage User Roles")
     with st.beta_form(submit_label="Submit", key="get-roles"):
         col1, _, col2 = st.beta_columns((3, 1, 2))
         user_id = col1.text_input("Enter the Github login ID for the user")
         current_roles = None
-        #if user_id:
-        current_roles = get_roles(user_id)
+        if user_id:
+            current_roles = get_roles(user_id)
         col2.markdown("**Current roles:**")
         col2.markdown(f"{current_roles}")
 
@@ -116,10 +116,10 @@ def main():
         role_name = col2.selectbox("Select role:", ROLES)
         action = col2.selectbox("Action", ["Add", "Delete"], index=0)
         result = col2.empty()
-        if action == "Add":
+        if user_id and action == "Add":
             add_role(user_id, role_name)
             result.markdown("Role Added")
-        elif action == "Delete":
+        elif user_id and action == "Delete":
             delete_role(user_id, role_name)
             result.markdown("Role removed")
 
