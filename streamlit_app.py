@@ -95,7 +95,7 @@ def main():
     update_resources = col2.button("Update")
     if update_resources and app_owner and app_repo and app_branch and app_main:
         status_code = set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
-        col2.markdown("Got %v".format(status_code))
+        col2.markdown("Got `{}`".format(status_code))
 
     st.markdown("# Manage User Roles")
     user_id = st.text_input("Enter the Github login ID for the user")
