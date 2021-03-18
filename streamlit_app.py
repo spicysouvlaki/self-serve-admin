@@ -8,6 +8,8 @@ from requests.exceptions import HTTPError
 # ? API to get and Enum
 # ? API for validation?
 
+ROLES = ["ROLE_S4T", "FEATURE_PRIVATE_REPO", "FEATURE_SECRETS_BETA", "FEATURE_SPINDOWN", "FEATURE_PYTHON_VERSION"]
+
 def get_resources(app_coords):
     return "RESOURCE_LEVEL_FAKE"
 
@@ -19,42 +21,30 @@ def get_roles(user_id):
         r = requests.get(f"http://apps-manager:8500/http/get-user-roles/{user_id}")
         r.raise_for_status()
     except HTTPError as http_err:
-        st.write(f'HTTP error occurred: {http_err}')
+        st.error(f'HTTP error occurred: {http_err}')
     except Exception as err:
-        st.write(f'Other error occurred: {err}')
-    else:
-        st.write('Success!', r.json())
+        st.error(f'Other error occurred: {err}')
 
-    return ["FAKE_ROLE1", "FAKE_ROLE2"]
+    return r.json["roles"]
 
 def add_role(user_id, role):
     try:
-        r = requests.post(f"http://apps-manager:8500/http/add-user-role", json={'github_user_id': user_id, "permission": 4})
+        r = requests.post(f"http://apps-manager:8500/http/add-user-role", json={'github_user_id': user_id, "permission": role})
         st.write(r.request.body)
         r.raise_for_status()
     except HTTPError as http_err:
-        st.write(f'HTTP error occurred: {http_err}')
+        st.error(f'HTTP error occurred: {http_err}')
     except Exception as err:
-        st.write(f'Other error occurred: {err}')
-    else:
-        st.write('Success!', r.json())
-
-
-roles_map = {
-
-} 
+        st.error(f'Other error occurred: {err}')
 
 def delete_role(user_id, role):
     try:
-        r = requests.post(f"http://apps-manager:8500/http/delete-user-role", json={'github_user_id': user_id, "permission": 4})
+        r = requests.post(f"http://apps-manager:8500/http/delete-user-role", json={'github_user_id': user_id, "permission": role})
         r.raise_for_status()
     except HTTPError as http_err:
-        st.write(f'HTTP error occurred: {http_err}')
+        st.error(f'HTTP error occurred: {http_err}')
     except Exception as err:
-        st.write(f'Other error occurred: {err}')
-    else:
-        st.write('Success!', r.json())
-
+        st.error(f'Other error occurred: {err}')
 
 password = "ciao"
 
@@ -91,7 +81,7 @@ def main():
     col1, col2 = st.beta_columns((1,  1))
     update_roles = col1.checkbox("Check to update the roles for this user")
     if update_roles:
-        role_name = col2.selectbox("Select role:", ["ROLE1", "ROLE2", "ROLE3"])
+        role_name = col2.selectbox("Select role:", ROLES)
         action = col2.selectbox("Action", ["-", "Add", "Delete"], index=0)
         result = col2.empty()
         if action == "Add":
