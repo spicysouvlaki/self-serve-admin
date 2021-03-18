@@ -21,11 +21,11 @@ def get_roles(user_id):
         r = requests.get(f"http://apps-manager:8500/http/get-user-roles/{user_id}")
         r.raise_for_status()
     except HTTPError as http_err:
-        st.error(f'HTTP error occurred: {http_err}')
+        st.error(f'HTTP error: {http_err}')
     except Exception as err:
-        st.error(f'Other error occurred: {err}')
+        st.error(f'Error: {err}')
 
-    return r.json["roles"]
+    return r.json()["roles"]
 
 def add_role(user_id, role):
     try:
@@ -33,18 +33,18 @@ def add_role(user_id, role):
         st.write(r.request.body)
         r.raise_for_status()
     except HTTPError as http_err:
-        st.error(f'HTTP error occurred: {http_err}')
+        st.error(f'HTTP error: {http_err}')
     except Exception as err:
-        st.error(f'Other error occurred: {err}')
+        st.error(f'Error: {err}')
 
 def delete_role(user_id, role):
     try:
         r = requests.post(f"http://apps-manager:8500/http/delete-user-role", json={'github_user_id': user_id, "permission": role})
         r.raise_for_status()
     except HTTPError as http_err:
-        st.error(f'HTTP error occurred: {http_err}')
+        st.error(f'HTTP error: {http_err}')
     except Exception as err:
-        st.error(f'Other error occurred: {err}')
+        st.error(f'Error: {err}')
 
 password = "ciao"
 
