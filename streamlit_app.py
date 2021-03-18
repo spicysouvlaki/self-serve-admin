@@ -51,8 +51,8 @@ def get_roles(user_id):
 
     obj = r.json()
     if "roles" in obj:
-        return obj["roles"]
-    return None
+        return obj["roles"], r.status_code
+    return None, r.status_code
 
 def add_role(user_id, role):
     try:
@@ -103,9 +103,11 @@ def main():
     col1, _, col2 = st.beta_columns((3, 1, 2))
     col1.markdown("## Obtain User Roles")
     query_roles = col1.button("Query", key=1)
-    current_roles = None
+    current_roles = []
     if query_roles and user_id:
-        current_roles = get_roles(user_id)
+        current_roles, status_code = get_roles(user_id)
+        col2.markdown("Got `{}`".format(status_code))
+
     col1.markdown("**Current roles:**")
     col1.markdown(f"{current_roles}")
 
