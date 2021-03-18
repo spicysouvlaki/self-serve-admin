@@ -90,7 +90,7 @@ def main():
         st.markdown(f"{current_resources_level}")
 
     col1, col2 = st.beta_columns((1,  1))
-    col1..markdown("## Set Resources")
+    col1.markdown("## Set Resources")
     desired_resources_level = col1.selectbox("Desired resource level", RESOURCES)
     update_resources = col1.button("Update")
     if update_resources and app_owner and app_repo and app_branch and app_main:
@@ -98,6 +98,7 @@ def main():
 
     st.markdown("# Manage User Roles")
     col1, _, col2 = st.beta_columns((3, 1, 2))
+    col1.markdown("## Query User Roles")
     user_id = col1.text_input("Enter the Github login ID for the user")
     query_roles = col1.button("Query")
     current_roles = None
@@ -107,6 +108,7 @@ def main():
     col2.markdown(f"{current_roles}")
 
     col1, col2 = st.beta_columns((1,  1))
+    col1.markdown("## Update User Roles")
     user_id = col1.text_input("Enter the Github login ID for the user", key=1)
     role_name = col2.selectbox("Select role:", ROLES)
     action = col2.selectbox("Action", ["Add", "Delete"], index=0)
