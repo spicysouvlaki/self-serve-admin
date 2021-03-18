@@ -91,7 +91,7 @@ def main():
     col1.markdown(f"{current_resources_level}")
 
     col2.markdown("## Set Resources")
-    desired_resources_level = col2.selectbox("Desired resource level", RESOURCES.remove("UNKNOWN"))
+    desired_resources_level = col2.selectbox("Desired resource level", [resource for resource in RESOURCES if resource != 'UNKNOWN'])
     update_resources = col2.button("Update")
     if update_resources and app_owner and app_repo and app_branch and app_main:
         status_code = set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
