@@ -1,1 +1,4 @@
 requests
+streamlit_ace
+st-execbox
+https://core-previews.s3-us-west-2.amazonaws.com/pr-2889/streamlit-0.76.0-py2.py3-none-any.whl
