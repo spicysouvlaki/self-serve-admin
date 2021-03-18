@@ -100,7 +100,7 @@ def main():
     col1, _, col2 = st.beta_columns((3, 1, 2))
     col1.markdown("## Query User Roles")
     user_id = col1.text_input("Enter the Github login ID for the user")
-    query_roles = col1.button("Query")
+    query_roles = col1.button("Query", key=1)
     current_roles = None
     if query_roles and user_id:
         current_roles = get_roles(user_id)
@@ -112,7 +112,7 @@ def main():
     user_id = col1.text_input("Enter the Github login ID for the user", key=1)
     role_name = col2.selectbox("Select role:", ROLES)
     action = col2.selectbox("Action", ["Add", "Delete"], index=0)
-    upate_roles = col2.button("Query")
+    upate_roles = col2.button("Query", key=1)
     result = col2.empty()
     if update_roles and user_id and action == "Add":
         add_role(user_id, role_name)
