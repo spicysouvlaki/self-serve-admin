@@ -90,10 +90,10 @@ def main():
     with st.beta_form(submit_label="Submit", key="set-resources"):
         st.markdown("## Set Resources")
         col1, col2 = st.beta_columns((1,  1))
-        app_owner = col1.text_input("Owner")
-        app_repo = col1.text_input("Repository")
-        app_branch = col1.text_input("Branch")
-        app_main = col1.text_input("Main File Path")
+        app_owner = col1.text_input("Owner", key=1)
+        app_repo = col1.text_input("Repository", key=1)
+        app_branch = col1.text_input("Branch", key=1)
+        app_main = col1.text_input("Main File Path", key=1)
         desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
         action = col2.selectbox("Action", ["-", "Update"], index=0)
         if action == "Update":
@@ -111,7 +111,7 @@ def main():
 
     with st.beta_form(submit_label="Submit", key="set-roles"):
         col1, col2 = st.beta_columns((1,  1))
-        user_id = col1.text_input("Enter the Github login ID for the user")
+        user_id = col1.text_input("Enter the Github login ID for the user", key=1)
         role_name = col2.selectbox("Select role:", ROLES)
         action = col2.selectbox("Action", ["-", "Add", "Delete"], index=0)
         result = col2.empty()
