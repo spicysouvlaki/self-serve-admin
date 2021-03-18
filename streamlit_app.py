@@ -75,6 +75,7 @@ password = "ciao"
 def main():
     st.markdown("# Manage the Resources for an App")
     with st.beta_form(submit_label="Submit", key="get-resources"):
+        st.markdown("## Obtain Resources")
         col1, _, col2 = st.beta_columns((3, 1, 2))
         app_owner = col1.text_input("Owner")
         app_repo = col1.text_input("Repository")
@@ -86,6 +87,8 @@ def main():
         col2.markdown(f"**Current resource level:**")
         col2.markdown(f"{current_resources_level}")
 
+    with st.beta_form(submit_label="Submit", key="set-resources"):
+        st.markdown("## Set Resources")
         col1, col2 = st.beta_columns((1,  1))
         update_resources = col1.checkbox("Check to update the resource level for this app")
         if update_resources:
