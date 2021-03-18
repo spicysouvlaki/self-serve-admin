@@ -12,18 +12,27 @@ ROLES = ["ROLE_S4T", "FEATURE_PRIVATE_REPO", "FEATURE_SECRETS_BETA", "FEATURE_SP
 RESOURCES = ["NORMAL", "MEDIUM", "HIGH", "UNKNOWN"]
 
 def get_resources(owner, repo, branch, main):
-    return "RESOURCE_LEVEL_FAKE"
-
-def set_resources(owner, repo, branch, main, target):
     try:
-        r = requests.post(f"http://apps-manager:8500/http/update-memory-limits", json={"owner": owner, "repository": repo, "branch": branch, "main_module": main, "target": target})
+        r = requests.get(f"http://apps-manager:8500/http/get-resources")
         r.raise_for_status()
     except HTTPError as http_err:
         st.error(f'HTTP error: {http_err}')
     except Exception as err:
         st.error(f'Error: {err}')
 
+    obj = r.json()
+    st.write(obj)
+    return None
 
+
+def set_resources(owner, repo, branch, main, target):
+    try:
+        r = requests.post(f"http://apps-manager:8500/http/update-memory-limits", json={"owner": owner, "repository": repo, "branch": branch, "main_module": main, "target": 1})
+        r.raise_for_status()
+    except HTTPError as http_err:
+        st.error(f'HTTP error: {http_err}')
+    except Exception as err:
+        st.error(f'Error: {err}')
 
 def get_roles(user_id):
     try:
