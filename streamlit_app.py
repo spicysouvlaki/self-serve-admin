@@ -74,7 +74,7 @@ password = "ciao"
 
 def main():
     st.markdown("# Manage the Resources for an App")
-    with st.beta_form(submit_label="Submit", key="Get Resources"):
+    with st.beta_form(submit_label="Submit", key="get-resources"):
         col1, _, col2 = st.beta_columns((3, 1, 2))
         app_owner = col1.text_input("Owner")
         app_repo = col1.text_input("Repository")
