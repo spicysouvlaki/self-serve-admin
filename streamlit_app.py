@@ -74,9 +74,9 @@ password = "ciao"
 
 def main():
     st.markdown("# Manage the Resources for an App")
-    st.markdown("## Obtain Resources")
     col1, _, col2 = st.beta_columns((3, 1, 2))
     with col1:
+        st.markdown("## Obtain Resources")
         app_owner = st.text_input("Owner")
         app_repo = st.text_input("Repository")
         app_branch = st.text_input("Branch")
@@ -89,35 +89,35 @@ def main():
         st.markdown(f"**Current resource level:**")
         st.markdown(f"{current_resources_level}")
 
-    st.markdown("## Set Resources")
     col1, col2 = st.beta_columns((1,  1))
-    desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
-    update_resources = col2.button("Update")
+    col1..markdown("## Set Resources")
+    desired_resources_level = col1.selectbox("Desired resource level", RESOURCES)
+    update_resources = col1.button("Update")
     if update_resources and app_owner and app_repo and app_branch and app_main:
         set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
     st.markdown("# Manage User Roles")
-    with st.beta_form(submit_label="Submit", key="get-roles"):
-        col1, _, col2 = st.beta_columns((3, 1, 2))
-        user_id = col1.text_input("Enter the Github login ID for the user")
-        current_roles = None
-        if user_id:
-            current_roles = get_roles(user_id)
-        col2.markdown("**Current roles:**")
-        col2.markdown(f"{current_roles}")
+    col1, _, col2 = st.beta_columns((3, 1, 2))
+    user_id = col1.text_input("Enter the Github login ID for the user")
+    query_roles = col1.button("Query")
+    current_roles = None
+    if query_roles and user_id:
+        current_roles = get_roles(user_id)
+    col2.markdown("**Current roles:**")
+    col2.markdown(f"{current_roles}")
 
-    with st.beta_form(submit_label="Submit", key="set-roles"):
-        col1, col2 = st.beta_columns((1,  1))
-        user_id = col1.text_input("Enter the Github login ID for the user", key=1)
-        role_name = col2.selectbox("Select role:", ROLES)
-        action = col2.selectbox("Action", ["Add", "Delete"], index=0)
-        result = col2.empty()
-        if user_id and action == "Add":
-            add_role(user_id, role_name)
-            result.markdown("Role Added")
-        elif user_id and action == "Delete":
-            delete_role(user_id, role_name)
-            result.markdown("Role removed")
+    col1, col2 = st.beta_columns((1,  1))
+    user_id = col1.text_input("Enter the Github login ID for the user", key=1)
+    role_name = col2.selectbox("Select role:", ROLES)
+    action = col2.selectbox("Action", ["Add", "Delete"], index=0)
+    upate_roles = col2.button("Query")
+    result = col2.empty()
+    if update_roles and user_id and action == "Add":
+        add_role(user_id, role_name)
+        result.markdown("Role Added")
+    elif update_roles and user_id and action == "Delete":
+        delete_role(user_id, role_name)
+        result.markdown("Role removed")
 
 
 st.write("TEST: the password is ciao")
