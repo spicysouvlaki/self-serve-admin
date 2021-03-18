@@ -110,7 +110,7 @@ def main():
     user_id = col1.text_input("Enter the Github login ID for the user", key=1)
     role_name = col2.selectbox("Select role:", ROLES)
     action = col2.selectbox("Action", ["Add", "Delete"], index=0)
-    upate_roles = col2.button("Update", key=1)
+    update_roles = col2.button("Update", key=1)
     result = col2.empty()
     if update_roles and user_id and action == "Add":
         add_role(user_id, role_name)
