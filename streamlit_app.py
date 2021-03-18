@@ -9,12 +9,21 @@ from requests.exceptions import HTTPError
 # ? API for validation?
 
 ROLES = ["ROLE_S4T", "FEATURE_PRIVATE_REPO", "FEATURE_SECRETS_BETA", "FEATURE_SPINDOWN", "FEATURE_PYTHON_VERSION"]
+RESOURCES = ["NORMAL", "MEDIUM", "HIGH", "UNKNOWN"]
 
-def get_resources(app_coords):
+def get_resources(owner, repo, branch, main):
     return "RESOURCE_LEVEL_FAKE"
 
-def set_resources(app_coords, resources_level):
-    pass
+def set_resources(owner, repo, branch, main, target):
+    try:
+        r = requests.post(f"http://apps-manager:8500/http/update-memory-limits", json={"owner": owner, "repository": repo, "branch": branch, "main_module": main, "target": target})
+        r.raise_for_status()
+    except HTTPError as http_err:
+        st.error(f'HTTP error: {http_err}')
+    except Exception as err:
+        st.error(f'Error: {err}')
+
+
 
 def get_roles(user_id):
     try:
@@ -33,7 +42,6 @@ def get_roles(user_id):
 def add_role(user_id, role):
     try:
         r = requests.post(f"http://apps-manager:8500/http/add-user-role", json={'github_user_id': user_id, "permission": role})
-        st.write(r.request.body)
         r.raise_for_status()
     except HTTPError as http_err:
         st.error(f'HTTP error: {http_err}')
@@ -60,17 +68,17 @@ def main():
     app_main = col1.text_input("Main File Path")
     current_resources_level = None
     if app_owner and app_repo and app_branch and app_main:
-        app_coords = (app_owner, app_repo, app_branch, app_main)
-        current_resources_level = get_resources(app_coords)
+        current_resources_level = get_resources(app_owner, app_repo, app_branch, app_main)
     col2.markdown(f"**Current resource level:**")
     col2.markdown(f"{current_resources_level}")
 
     col1, col2 = st.beta_columns((1,  1))
     update_resources = col1.checkbox("Check to update the resource level for this app")
     if update_resources:
-        app_coords = (app_owner, app_repo, app_main)
-        desired_resources_level = col2.selectbox("Desired resource level", ["Normal", "Medium", "High"])
-        set_resources(app_coords, desired_resources_level)
+        desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
+        action = col2.selectbox("Action", ["-", "Update"], index=0)
+        if action == "Update":
+             set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
     st.markdown("# Manage User Roles")
     col1, _, col2 = st.beta_columns((3, 1, 2))
