@@ -83,8 +83,8 @@ def main():
             app_branch = st.text_input("Branch")
             app_main = st.text_input("Main File Path")
         current_resources_level = None
-        #if app_owner and app_repo and app_branch and app_main:
-        current_resources_level = get_resources(app_owner, app_repo, app_branch, app_main)
+        if app_owner and app_repo and app_branch and app_main:
+            current_resources_level = get_resources(app_owner, app_repo, app_branch, app_main)
         with col2:
             st.markdown(f"**Current resource level:**")
             st.markdown(f"{current_resources_level}")
