@@ -25,7 +25,10 @@ def get_roles(user_id):
     except Exception as err:
         st.error(f'Error: {err}')
 
-    return r.json()["roles"]
+    obj = r.json()
+    if "roles" in obj:
+        return obj["roles"]
+    return None
 
 def add_role(user_id, role):
     try:
