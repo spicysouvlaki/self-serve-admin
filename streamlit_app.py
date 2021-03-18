@@ -36,6 +36,7 @@ def set_resources(owner, repo, branch, main, target):
         st.error(f'HTTP error: {http_err}')
     except Exception as err:
         st.error(f'Error: {err}')
+    return r.status_code
 
 def get_roles(user_id):
     try:
@@ -90,10 +91,11 @@ def main():
     col1.markdown(f"{current_resources_level}")
 
     col2.markdown("## Set Resources")
-    desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
+    desired_resources_level = col2.selectbox("Desired resource level", RESOURCES.remove("UNKNOWN"))
     update_resources = col2.button("Update")
     if update_resources and app_owner and app_repo and app_branch and app_main:
-        set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
+        status_code = set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
+        st.write("Got ", status_code)
 
     st.markdown("# Manage User Roles")
     user_id = st.text_input("Enter the Github login ID for the user")
