@@ -82,8 +82,8 @@ def main():
         app_branch = col1.text_input("Branch")
         app_main = col1.text_input("Main File Path")
         current_resources_level = None
-        if app_owner and app_repo and app_branch and app_main:
-            current_resources_level = et_resources(app_owner, app_repo, app_branch, app_main)
+        #if app_owner and app_repo and app_branch and app_main:
+        current_resources_level = et_resources(app_owner, app_repo, app_branch, app_main)
         col2.markdown(f"**Current resource level:**")
         col2.markdown(f"{current_resources_level}")
 
@@ -95,17 +95,16 @@ def main():
         app_branch = col1.text_input("Branch", key=1)
         app_main = col1.text_input("Main File Path", key=1)
         desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
-        action = col2.selectbox("Action", ["-", "Update"], index=0)
-        if action == "Update":
-             set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
+        #if app_owner and app_repo and app_branch and app_main:
+        set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
     st.markdown("# Manage User Roles")
     with st.beta_form(submit_label="Submit", key="get-roles"):
         col1, _, col2 = st.beta_columns((3, 1, 2))
         user_id = col1.text_input("Enter the Github login ID for the user")
         current_roles = None
-        if user_id:
-            current_roles = get_roles(user_id)
+        #if user_id:
+        current_roles = get_roles(user_id)
         col2.markdown("**Current roles:**")
         col2.markdown(f"{current_roles}")
 
@@ -113,7 +112,7 @@ def main():
         col1, col2 = st.beta_columns((1,  1))
         user_id = col1.text_input("Enter the Github login ID for the user", key=1)
         role_name = col2.selectbox("Select role:", ROLES)
-        action = col2.selectbox("Action", ["-", "Add", "Delete"], index=0)
+        action = col2.selectbox("Action", ["Add", "Delete"], index=0)
         result = col2.empty()
         if action == "Add":
             add_role(user_id, role_name)
@@ -121,8 +120,6 @@ def main():
         elif action == "Delete":
             delete_role(user_id, role_name)
             result.markdown("Role removed")
-        else:
-            result.markdown("Specify an action")
 
 
 st.write("TEST: the password is ciao")
