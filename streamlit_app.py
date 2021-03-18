@@ -77,15 +77,17 @@ def main():
     with st.beta_form(submit_label="Submit", key="get-resources"):
         st.markdown("## Obtain Resources")
         col1, _, col2 = st.beta_columns((3, 1, 2))
-        app_owner = col1.text_input("Owner")
-        app_repo = col1.text_input("Repository")
-        app_branch = col1.text_input("Branch")
-        app_main = col1.text_input("Main File Path")
+        with col1:
+            app_owner = st.text_input("Owner")
+            app_repo = st.text_input("Repository")
+            app_branch = st.text_input("Branch")
+            app_main = st.text_input("Main File Path")
         current_resources_level = None
         #if app_owner and app_repo and app_branch and app_main:
         current_resources_level = get_resources(app_owner, app_repo, app_branch, app_main)
-        col2.markdown(f"**Current resource level:**")
-        col2.markdown(f"{current_resources_level}")
+        with col2:
+            st.markdown(f"**Current resource level:**")
+            st.markdown(f"{current_resources_level}")
 
     with st.beta_form(submit_label="Submit", key="set-resources"):
         st.markdown("## Set Resources")
