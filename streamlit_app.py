@@ -52,7 +52,7 @@ def get_roles(user_id):
     obj = r.json()
     if "roles" in obj:
         return obj["roles"], r.status_code
-    return None, r.status_code
+    return [], r.status_code
 
 def add_role(user_id, role):
     try:
