@@ -107,7 +107,6 @@ def main():
     col1.markdown(f"{current_roles}")
 
     col2.markdown("## Update User Roles")
-    user_id = col1.text_input("Enter the Github login ID for the user", key=1)
 
     role_name = col2.selectbox("Select role:", ROLES)
     action = col2.selectbox("Action", ["Add", "Delete"], index=0)
