@@ -82,6 +82,7 @@ def main():
         app_branch = st.text_input("Branch")
         app_main = st.text_input("Main File Path")
     current_resources_level = None
+    get_resources = col1.button("Query")
     if app_owner and app_repo and app_branch and app_main:
         current_resources_level = get_resources(app_owner, app_repo, app_branch, app_main)
     with col2:
@@ -91,7 +92,7 @@ def main():
     st.markdown("## Set Resources")
     col1, col2 = st.beta_columns((1,  1))
     desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
-    update = col2.button("Update")
+    update_resources = col2.button("Update")
     if update and app_owner and app_repo and app_branch and app_main:
         set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
