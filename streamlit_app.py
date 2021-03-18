@@ -74,24 +74,25 @@ password = "ciao"
 
 def main():
     st.markdown("# Manage the Resources for an App")
-    col1, _, col2 = st.beta_columns((3, 1, 2))
-    app_owner = col1.text_input("Owner")
-    app_repo = col1.text_input("Repository")
-    app_branch = col1.text_input("Branch")
-    app_main = col1.text_input("Main File Path")
-    current_resources_level = None
-    if app_owner and app_repo and app_branch and app_main:
-        current_resources_level = et_resources(app_owner, app_repo, app_branch, app_main)
-    col2.markdown(f"**Current resource level:**")
-    col2.markdown(f"{current_resources_level}")
+    with st.beta_form(submit_label="Submit", key="Get Resources"):
+        col1, _, col2 = st.beta_columns((3, 1, 2))
+        app_owner = col1.text_input("Owner")
+        app_repo = col1.text_input("Repository")
+        app_branch = col1.text_input("Branch")
+        app_main = col1.text_input("Main File Path")
+        current_resources_level = None
+        if app_owner and app_repo and app_branch and app_main:
+            current_resources_level = et_resources(app_owner, app_repo, app_branch, app_main)
+        col2.markdown(f"**Current resource level:**")
+        col2.markdown(f"{current_resources_level}")
 
-    col1, col2 = st.beta_columns((1,  1))
-    update_resources = col1.checkbox("Check to update the resource level for this app")
-    if update_resources:
-        desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
-        action = col2.selectbox("Action", ["-", "Update"], index=0)
-        if action == "Update":
-             set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
+        col1, col2 = st.beta_columns((1,  1))
+        update_resources = col1.checkbox("Check to update the resource level for this app")
+        if update_resources:
+            desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
+            action = col2.selectbox("Action", ["-", "Update"], index=0)
+            if action == "Update":
+                 set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
     st.markdown("# Manage User Roles")
     col1, _, col2 = st.beta_columns((3, 1, 2))
