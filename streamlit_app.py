@@ -74,25 +74,23 @@ password = "ciao"
 
 def main():
     st.markdown("# Manage the Resources for an App")
-    col1, _, col2 = st.beta_columns((3, 1, 2))
-    with col1:
-        st.markdown("## Obtain Resources")
-        app_owner = st.text_input("Owner")
-        app_repo = st.text_input("Repository")
-        app_branch = st.text_input("Branch")
-        app_main = st.text_input("Main File Path")
+    st.markdown("## Obtain Resources")
+    app_owner = st.text_input("Owner")
+    app_repo = st.text_input("Repository")
+    app_branch = st.text_input("Branch")
+    app_main = st.text_input("Main File Path")
+
+    col1, _, col2 = st.beta_columns((4, 1, 4))
     current_resources_level = None
     query_resources = col1.button("Query")
     if query_resources and app_owner and app_repo and app_branch and app_main:
         current_resources_level = get_resources(app_owner, app_repo, app_branch, app_main)
-    with col2:
-        st.markdown(f"**Current resource level:**")
-        st.markdown(f"{current_resources_level}")
+     col1.markdown(f"**Current resource level:**")
+     col1.markdown(f"{current_resources_level}")
 
-    col1, col2 = st.beta_columns((1,  1))
-    col1.markdown("## Set Resources")
-    desired_resources_level = col1.selectbox("Desired resource level", RESOURCES)
-    update_resources = col1.button("Update")
+    col2.markdown("## Set Resources")
+    desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
+    update_resources = col2.button("Update")
     if update_resources and app_owner and app_repo and app_branch and app_main:
         set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
