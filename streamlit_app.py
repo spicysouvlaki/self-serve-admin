@@ -90,25 +90,28 @@ def main():
     with st.beta_form(submit_label="Submit", key="set-resources"):
         st.markdown("## Set Resources")
         col1, col2 = st.beta_columns((1,  1))
-        update_resources = col1.checkbox("Check to update the resource level for this app")
-        if update_resources:
-            desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
-            action = col2.selectbox("Action", ["-", "Update"], index=0)
-            if action == "Update":
-                 set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
+        app_owner = col1.text_input("Owner")
+        app_repo = col1.text_input("Repository")
+        app_branch = col1.text_input("Branch")
+        app_main = col1.text_input("Main File Path")
+        desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
+        action = col2.selectbox("Action", ["-", "Update"], index=0)
+        if action == "Update":
+             set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
     st.markdown("# Manage User Roles")
-    col1, _, col2 = st.beta_columns((3, 1, 2))
-    user_id = col1.text_input("Enter the Github login ID for the user")
-    current_roles = None
-    if user_id:
-        current_roles = get_roles(user_id)
-    col2.markdown("**Current roles:**")
-    col2.markdown(f"{current_roles}")
+    with st.beta_form(submit_label="Submit", key="get-roles"):
+        col1, _, col2 = st.beta_columns((3, 1, 2))
+        user_id = col1.text_input("Enter the Github login ID for the user")
+        current_roles = None
+        if user_id:
+            current_roles = get_roles(user_id)
+        col2.markdown("**Current roles:**")
+        col2.markdown(f"{current_roles}")
 
-    col1, col2 = st.beta_columns((1,  1))
-    update_roles = col1.checkbox("Check to update the roles for this user")
-    if update_roles:
+    with st.beta_form(submit_label="Submit", key="set-roles"):
+        col1, col2 = st.beta_columns((1,  1))
+        user_id = col1.text_input("Enter the Github login ID for the user")
         role_name = col2.selectbox("Select role:", ROLES)
         action = col2.selectbox("Action", ["-", "Add", "Delete"], index=0)
         result = col2.empty()
