@@ -17,8 +17,10 @@ def get_resources(owner, repo, branch, main):
         r.raise_for_status()
     except HTTPError as http_err:
         st.error(f'HTTP error: {http_err}')
+        return None
     except Exception as err:
         st.error(f'Error: {err}')
+        return None
 
     obj = r.json()
     st.write(obj)
@@ -40,8 +42,10 @@ def get_roles(user_id):
         r.raise_for_status()
     except HTTPError as http_err:
         st.error(f'HTTP error: {http_err}')
+        return None
     except Exception as err:
         st.error(f'Error: {err}')
+        return None
 
     obj = r.json()
     if "roles" in obj:
