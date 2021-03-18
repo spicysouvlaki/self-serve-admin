@@ -74,13 +74,13 @@ password = "ciao"
 
 def main():
     st.markdown("# Manage the Resources for an App")
-    st.markdown("## Obtain Resources")
     app_owner = st.text_input("Owner")
     app_repo = st.text_input("Repository")
     app_branch = st.text_input("Branch")
     app_main = st.text_input("Main File Path")
 
     col1, _, col2 = st.beta_columns((4, 1, 4))
+    col1.markdown("## Obtain Resources")
     current_resources_level = None
     query_resources = col1.button("Query")
     if query_resources and app_owner and app_repo and app_branch and app_main:
@@ -95,19 +95,20 @@ def main():
         set_resources(app_owner, app_repo, app_branch, app_main, desired_resources_level)
 
     st.markdown("# Manage User Roles")
+    user_id = st.text_input("Enter the Github login ID for the user")
+
     col1, _, col2 = st.beta_columns((3, 1, 2))
-    col1.markdown("## Query User Roles")
-    user_id = col1.text_input("Enter the Github login ID for the user")
+    col1.markdown("## Obtain User Roles")
     query_roles = col1.button("Query", key=1)
     current_roles = None
     if query_roles and user_id:
         current_roles = get_roles(user_id)
-    col2.markdown("**Current roles:**")
-    col2.markdown(f"{current_roles}")
+    col1.markdown("**Current roles:**")
+    col1.markdown(f"{current_roles}")
 
-    col1, col2 = st.beta_columns((1,  1))
-    col1.markdown("## Update User Roles")
+    col2.markdown("## Update User Roles")
     user_id = col1.text_input("Enter the Github login ID for the user", key=1)
+
     role_name = col2.selectbox("Select role:", ROLES)
     action = col2.selectbox("Action", ["Add", "Delete"], index=0)
     update_roles = col2.button("Update", key=1)
