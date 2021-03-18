@@ -85,8 +85,8 @@ def main():
     query_resources = col1.button("Query")
     if query_resources and app_owner and app_repo and app_branch and app_main:
         current_resources_level = get_resources(app_owner, app_repo, app_branch, app_main)
-     col1.markdown(f"**Current resource level:**")
-     col1.markdown(f"{current_resources_level}")
+    col1.markdown(f"**Current resource level:**")
+    col1.markdown(f"{current_resources_level}")
 
     col2.markdown("## Set Resources")
     desired_resources_level = col2.selectbox("Desired resource level", RESOURCES)
